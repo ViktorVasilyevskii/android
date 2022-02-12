@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Generator</string>
+
+    <string name="text_button_prime_number">Простые числа</string>
+    <string name="text_button_fibonacci_number">Числа Фибоначчи</string>
+
+</resources>
