@@ -4,4 +4,8 @@
     <string name="text_button_prime_number">Простые числа</string>
     <string name="text_button_fibonacci_number">Числа Фибоначчи</string>
 
+    <string name="text_switch_columns">Переключение количества столбцов</string>
+    <string name="text_switch_two_columns">Два</string>
+    <string name="text_switch_three_columns">Три</string>
+
 </resources>

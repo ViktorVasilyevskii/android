@@ -17,6 +17,8 @@ class RecycleViewAdapter : RecyclerView.Adapter<RecycleViewAdapter.RecycleViewHo
         notifyDataSetChanged()
     }
 
+    var columnsTwo: Boolean = true
+
     var numberLine = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecycleViewHolder {
@@ -30,21 +32,9 @@ class RecycleViewAdapter : RecyclerView.Adapter<RecycleViewAdapter.RecycleViewHo
     }
 
     override fun onBindViewHolder(holder: RecycleViewHolder, position: Int) {
-        numberLine = position / 2
 
-        if (position % 2 == 0) {
-           if(numberLine % 2 == 0) {
-              holder.cardViewItem.setBackgroundColor(GRAY)
-           }else {
-              holder.cardViewItem.setBackgroundColor(WHITE)
-           }
-        } else {
-           if(numberLine % 2 == 0) {
-              holder.cardViewItem.setBackgroundColor(WHITE)
-           }else {
-              holder.cardViewItem.setBackgroundColor(GRAY)
-           }
-        }
+        if(columnsTwo) backgroundRecycleViewTwoColumns(holder, position)
+        else backgroundRecycleViewThreeColumns(holder, position)
 
         holder.bind(listPrime[position])
     }
@@ -59,6 +49,38 @@ class RecycleViewAdapter : RecyclerView.Adapter<RecycleViewAdapter.RecycleViewHo
         fun bind(number: String) {
             numberView.text = number
         }
+
+    }
+
+    private fun updateBackgroundCardView(holder: RecycleViewHolder, color: Int){
+        holder.cardViewItem.setBackgroundColor(color)
+    }
+
+    private fun backgroundRecycleViewTwoColumns(holder: RecycleViewHolder, position: Int){
+        numberLine = position / 2
+
+        if (position % 2 == 0) {
+            if(numberLine % 2 == 0) {
+                updateBackgroundCardView(holder, GRAY)
+            }else {
+                updateBackgroundCardView(holder, WHITE)
+            }
+        } else {
+            if(numberLine % 2 == 0) {
+                updateBackgroundCardView(holder, WHITE)
+            }else {
+                updateBackgroundCardView(holder, GRAY)
+            }
+        }
+    }
+
+    private fun backgroundRecycleViewThreeColumns(holder: RecycleViewHolder, position: Int){
+
+        if (position % 2 == 0) {
+                updateBackgroundCardView(holder, GRAY)
+            }else {
+                updateBackgroundCardView(holder, WHITE)
+            }
 
     }
 

@@ -4,6 +4,7 @@ import android.graphics.Color.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Switch
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,8 @@ import java.util.stream.Collectors
 
 class MainActivity : AppCompatActivity() {
 
-    private val spanCountGrid = 2
+    private val spanThreeGrid = 3
+    private val spanTwoGrid = 2
     private val recycleViewAdapter = RecycleViewAdapter()
 
     private var visibleItemCount: Int = 0
@@ -43,19 +45,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.list_numbers)
-        gridLayoutManager = GridLayoutManager(this, spanCountGrid)
         buttonPrimeNumbers = findViewById(R.id.button_prime_number)
         buttonFibonacciNumbers = findViewById(R.id.button_fibonacci_number)
 
-        recyclerView.layoutManager = gridLayoutManager
-        recyclerView.adapter = recycleViewAdapter
-
         dataStartApp()
         clickButtonListener()
+        switchColumns()
+    }
+
+    private fun initRecycleView(spanCountGrid: Int){
+        recyclerView = findViewById(R.id.list_numbers)
+        gridLayoutManager = GridLayoutManager(this, spanCountGrid)
+        recyclerView.layoutManager = gridLayoutManager
+        recyclerView.adapter = recycleViewAdapter
     }
 
     private fun dataStartApp(){
+        initRecycleView(spanTwoGrid)
         generatorPrime.addListener(primeListener)
         buttonPrimeNumbersPress()
         generatorNumbersScrollListener(indicatorGeneratorPrime)
@@ -108,6 +114,17 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun switchColumns(){
+        findViewById<Switch>(R.id.switch_columns).setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                initRecycleView(spanThreeGrid)
+                recycleViewAdapter.columnsTwo = false
+            } else {
+                initRecycleView(spanTwoGrid)
+                recycleViewAdapter.columnsTwo = true
+            }
+        }
+    }
 
     private val primeListener: PrimeListener = {
         recycleViewAdapter.listPrime = it
